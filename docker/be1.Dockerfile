@@ -1,23 +1,14 @@
-# be1.Dockerfile
+# dockerfile/be1.Dockerfile
 
 FROM node:18-alpine
 
 WORKDIR /app
 
-# Install dependencies
-COPY grpc/be1/package*.json ./
+COPY be1/package*.json ./
 RUN npm install
 
-# Copy source files
-COPY grpc/be1 .
-
-# Build TypeScript to JS
+COPY be1 ./
 RUN npm run build
 
-
-
-# Expose REST API port
 EXPOSE 3000
-
-# Run the compiled JS
 CMD ["node", "dist/index.js"]

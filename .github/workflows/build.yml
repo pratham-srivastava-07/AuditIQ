@@ -20,26 +20,27 @@ jobs:
           node-version: 18
           cache: 'npm'
 
+      
       - name:  Install dependencies for be1
-        working-directory: ./be1
+        working-directory: be1
         run: npm install
 
-      - name: 🛠️ Build be1 (TypeScript)
-        working-directory: ./be1
+      - name:  Build be1
+        working-directory: be1
         run: npm run build
 
-
+    
       - name:  Install dependencies for be2
-        working-directory: ./be2
+        working-directory: be2
         run: npm install
 
-      - name:  Build be2 (TypeScript)
-        working-directory: ./be2
+      - name:  Build be2
+        working-directory: be2
         run: npm run build
 
+      
       - name:  Build be1 Docker image
-        run: docker build -f docker/be1.Dockerfile -t be1 .
-
+        run: docker build -f dockerfile/be1.Dockerfile -t be1 .
 
       - name:  Build be2 Docker image
-        run: docker build -f docker/be2.Dockerfile -t be2 .
+        run: docker build -f dockerfile/be2.Dockerfile -t be2 .
