@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package notes;
+
+service TextProcessor {
+  rpc summarize (SummarizeRequest) returns (SummaryResponse);
+  rpc diff (DiffRequest) returns (DiffResponse);
+}
+
+message SummarizeRequest {
+  string content = 1;
+}
+
+message SummaryResponse {
+  string result = 1;
+}
+
+message DiffRequest {
+  string old_content = 1;
+  string new_content = 2;
+}
+
+message DiffResponse {
+  string result = 1;
+}
