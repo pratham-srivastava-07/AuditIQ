@@ -11,36 +11,35 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: ⬇ Checkout code
+      - name:  Checkout code
         uses: actions/checkout@v4
 
       - name:  Set up Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 18
-          cache: 'npm'
 
-      
       - name:  Install dependencies for be1
         working-directory: be1
-        run: npm install
+        run: npm ci
 
       - name:  Build be1
         working-directory: be1
         run: npm run build
 
-    
       - name:  Install dependencies for be2
         working-directory: be2
-        run: npm install
+        run: npm ci
 
       - name:  Build be2
         working-directory: be2
         run: npm run build
 
-      
+      - name:  Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
       - name:  Build be1 Docker image
-        run: docker build -f dockerfile/be1.Dockerfile -t be1 .
+        run: docker build -f dockerfile/be1.Dockerfile -t be1:latest .
 
       - name:  Build be2 Docker image
-        run: docker build -f dockerfile/be2.Dockerfile -t be2 .
+        run: docker build -f dockerfile/be2.Dockerfile -t be2:latest .
